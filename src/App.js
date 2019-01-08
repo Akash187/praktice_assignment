@@ -62,23 +62,25 @@ class App extends React.Component {
     const data = this.state.data;
     console.log(JSON.stringify(data[selectedDate]));
     console.log("minutes : " + JSON.stringify(data[selectedDate][selectedHour]));
-    this.setState(() => ({
-        optionGroups: {
-          ...this.state.optionGroups,
-          minute: data[selectedDate][selectedHour].map((time) => {
-            return Object.keys(time);
-          })
-        }
-      }),
-      () => (
-        this.setState({
-          valueGroups: {
-            ...this.state.valueGroups,
-            minute: this.state.optionGroups.minute[this.middleIndexOfArray(this.state.optionGroups.minute)]
+    if(data[selectedDate][selectedHour]){
+      this.setState(() => ({
+          optionGroups: {
+            ...this.state.optionGroups,
+            minute: data[selectedDate][selectedHour].map((time) => {
+              return Object.keys(time);
+            })
           }
-        })
-      )
-    );
+        }),
+        () => (
+          this.setState({
+            valueGroups: {
+              ...this.state.valueGroups,
+              minute: this.state.optionGroups.minute[this.middleIndexOfArray(this.state.optionGroups.minute)]
+            }
+          })
+        )
+      );
+    };
   };
 
   componentDidMount(){
@@ -153,6 +155,8 @@ class App extends React.Component {
           slotId
         }
       })
+    }else{
+
     }
   };
 
